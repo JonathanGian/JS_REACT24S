@@ -47,11 +47,13 @@ Using the `Book` constructor, create a new book object with the provided input v
 */
 
 // Your code here
-function Book(title,author,yearPublished,genres) {
+class Book {
+    constructor (title,author,yearPublished,genres) {
     this.title = title;
     this.author = author;
     this.yearPublished = yearPublished;
     this.genres = genres;
+}
 }
 const book3 = new Book("Elequent JavaScript","Someone",2023,"Learning")
 /* Task 5
