@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cars</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+    <nav>
+        
+        <form id="search-bar">
+        <h2>Search</h2>
+        <label for="licensePlateSearch">License number</label>
+        <input class= "searchbar" type="text" name="searchbar" id="searchbar">
+        <button type="submit" class= "searchBtn" name="button" id="searchBtn">Search</button>
+        <p id="searchResult">No car found</p>
+        </form>
+</nav>
+    
+
+<body>
+<div class="main-container" id="main-container">
+<section class="form-container">
+<h2>Insert car data</h2>
+<form id="carInfo" method="get" class="car-form">
+<div>
+    <label for="licensePlate">License Plate: </label>
+    
+    <input type="text" name="licensePlate" id="licensePlate" />
+</div>
+    <div>
+    <label for="maker">Maker </label>
+    
+    <input type="text" name="maker" id="maker" />
+    </div>
+    <div>
+    <label for="model">Model </label>
+    <input type="text" name="model" id="model" />
+    </div>
+    
+    <div>
+    <label for="currentOwner">Current Owner </label>
+    <input type="text" name="currentOwner" id="currentOwner" />
+    </div>
+    
+    <div>
+    <label for="price">Price </label>
+    <input type="number" name="price" id="price" />
+
+</div>
+<div>
+    <label for="color">Color </label>
+    <input type="text" name="color" id="color" />    
+</div>
+<button type="button" id="addCarBtn">Add car</button>
+<button type="reset" id="resetBtn">Reset</button>
+
+</form>
+
+</section>
+<section>
+    <h2>Cars database</h2>
+    <table id="carsTable">
+        <tr>
+            <th>License</th>
+            <th>Maker</th>
+            <th>Model</th>
+            <th>Owner</th>
+            <th>Price</th>
+            <th>Color</th>
+        </tr>    
+         
+    </table>
+</section>
+</div>
+<footer>Copyright &copy Jonathan Gian</footer>
+    <script src="script.js" ></script> 
+</body>
+</html>

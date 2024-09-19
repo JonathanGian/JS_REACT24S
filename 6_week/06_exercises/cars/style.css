@@ -1,0 +1,105 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Readex Pro","Karla",Arial, Helvetica, sans-serif;
+    
+    background-color: lightskyblue;
+    height: 200vh;
+    
+  
+  }
+  .search-bar{
+    display: flex;
+    min-height: 400px;
+    /* min-width: 1000px; */
+    justify-content: space-evenly;
+    background: whitesmoke;
+    margin-top: 20px;
+    padding-left: 20px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+   
+}
+.searchBtn{
+    min-width: 90px;
+    max-height: 40px;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+ nav{
+    display: flex;
+    
+    justify-content: space-evenly;
+    background: whitesmoke;
+    margin-top: 20px;
+    padding-left: 0px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: baseline;
+ }
+.main-container{
+    display: flex;
+    justify-content: space-between;
+}
+h2 {
+    padding-left: 10px;
+}
+  form{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    gap: 10px;
+}
+input{
+    min-height: 30px;
+
+}
+ .button-container{
+    display: flex;
+}     
+
+
+table{
+    border-collapse: collapse;
+    width: 100%;
+    color: white;
+    
+    
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    background: lightskyblue;
+    text-align: left;
+    padding: 30px;
+  }
+/*   td:nth-child(even){
+    background-color: #d4d4d4;
+  }
+   */
+  tr:nth-child(even) {
+    background-color: #d4d4d4;
+  }
+ 
+  button{ 
+    background: rgb(59, 109, 247);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 20px;
+    margin-left: 5vh;
+    
+    width: 50%;
+}
+.searchBtn{
+    width: 10%;
+}
+.searchbar{
+    width: 70%;
+}
