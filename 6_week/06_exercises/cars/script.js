@@ -41,24 +41,28 @@ const addCarBtn = document.querySelector("#addCarBtn");
 
 
 function getCarData(){
-    
+    const resultsDiv = document.getElementById("results")
     event.preventDefault()
-    if (priceInput.value <= 0) {
-        alert("Invalid price")
-        return
+    try {
+        if (priceInput.value <= 0) {
+            resultsDiv.innerHTML = "<strong>Price is not vaild(Enter a number above 0)</strong>";
+            resultsDiv.style.color = "red";
+        throw new RangeError("Price is not valid");
         
     }
-    if (yearInput.value <= 1886 || yearInput.value >= 2024) {
-        alert("Invalid car year: Must be between 1886-2024")
-        return 
+    // This is never triggered but I put it in as a backup
+    if (yearInput.value < 1886 || yearInput.value >= 2024) {
+        resultsDiv.innerHTML = "<strong>Year must be between 1886-2024</strong>";
+        resultsDiv.style.color ="red";
+        throw new Error("Year must be between 1886-2024");
+        
     }
-    const newCar = new Car(licensePlateInput.value.trim(),makerInput.value,modelInput.value,ownerInput.value,priceInput.value,colorInput.value,yearInput.value);
+
+    const newCar = new Car(licensePlateInput.value.trim(),makerInput.value,modelInput.value,ownerInput.value,priceInput.value.trim(),colorInput.value,yearInput.value);
     
     
     cars.push(newCar);
-    localStorage.setItem("cars",JSON.stringify(cars));
-    
-   
+
     licensePlateInput.value = "";
     makerInput.value = "";
     modelInput.value = "";
@@ -66,9 +70,19 @@ function getCarData(){
     priceInput.value = "";
     colorInput.value = "";
     yearInput.value = "";
-    displayTable()
+    localStorage.setItem("cars",JSON.stringify(cars));
     
+    displayTable()
+
+    } catch (error) {
+        console.error("Caught an error:", error.message)
+       
+    }
 }
+        
+    
+   
+    
 const displayTable = () =>{
     const table = document.querySelector("#carsTable");
     table.innerHTML = table.rows[0].innerHTML;
@@ -84,18 +98,18 @@ const displayTable = () =>{
 
 displayTable()
 function licenseSearch(){
-    // Taking the search input and trimming
+    
     const searchInput = document.getElementById("searchbar").value.trim();
 
     event.preventDefault()
-    //finding the div we will write the results to
+    
     const resultsDiv = document.getElementById("results")
-    //Making sure the input isnt empty
+    
     if (searchInput === ""){
         resultsDiv.textContent = "Please enter a valid license plate."
         return
     }
-    // Searching cars for license
+   
     const result = cars.find(car => car.license.toLowerCase().toString() === searchInput.toLowerCase() );
 
     if (result) {
