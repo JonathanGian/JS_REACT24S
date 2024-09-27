@@ -1,12 +1,21 @@
 "use strict"
 
-function Car(license,maker,model,owner,price,color) {
+// To save info on the computer
+let cars = JSON.parse(localStorage.getItem("cars"));
+if (cars == undefined) {
+    cars = []
+    
+}
+// localStorage.clear() in the console will clear the storage
+
+function Car(license,maker,model,owner,price,color,year) {
     this.license = license;
     this.maker = maker;
     this.model = model;
     this.owner = owner;
     this.price = price;
     this.color = color;
+    this.year = year;
 }
 
 
@@ -15,36 +24,48 @@ function Car(license,maker,model,owner,price,color) {
 // Form inputs
 const searchCarform = document.getElementById("search-bar")
 
+const carForm = document.getElementById("carInfo")
 const licensePlateInput = document.getElementById("licensePlate");
 const makerInput = document.getElementById("maker");
 const modelInput = document.getElementById("model");
 const ownerInput = document.getElementById("currentOwner");
 const priceInput = document.getElementById("price");
 const colorInput = document.getElementById("color");
+const yearInput = document.getElementById("year")
+const addCarBtn = document.querySelector("#addCarBtn");
+
 //End of form inputs
 
-const addCarBtn = document.querySelector("#addCarBtn");
-const resetBtn = document.querySelector("#resetBtn");
-const cars =[];
 
 
 
 
 function getCarData(){
     
-    const newCar = new Car(licensePlateInput.value,makerInput.value,modelInput.value,ownerInput.value,priceInput.value,colorInput.value);
+    event.preventDefault()
+    if (priceInput.value <= 0) {
+        alert("Invalid price")
+        return
+        
+    }
+    if (yearInput.value <= 1886 || yearInput.value >= 2024) {
+        alert("Invalid car year: Must be between 1886-2024")
+        return 
+    }
+    const newCar = new Car(licensePlateInput.value.trim(),makerInput.value,modelInput.value,ownerInput.value,priceInput.value,colorInput.value,yearInput.value);
     
     
     cars.push(newCar);
-    console.log(cars,"cars");
-    console.log(newCar,"newCar")
+    localStorage.setItem("cars",JSON.stringify(cars));
     
+   
     licensePlateInput.value = "";
     makerInput.value = "";
     modelInput.value = "";
     ownerInput.value = "";
     priceInput.value = "";
     colorInput.value = "";
+    yearInput.value = "";
     displayTable()
     
 }
@@ -61,21 +82,45 @@ const displayTable = () =>{
     })
 }
 
-function carSearch(){
-console.log(searchCarform.value)
+displayTable()
+function licenseSearch(){
+    // Taking the search input and trimming
+    const searchInput = document.getElementById("searchbar").value.trim();
+
+    event.preventDefault()
+    //finding the div we will write the results to
+    const resultsDiv = document.getElementById("results")
+    //Making sure the input isnt empty
+    if (searchInput === ""){
+        resultsDiv.textContent = "Please enter a valid license plate."
+        return
+    }
+    // Searching cars for license
+    const result = cars.find(car => car.license.toLowerCase().toString() === searchInput.toLowerCase() );
+
+    if (result) {
+        resultsDiv.innerHTML =`
+            <p><strong>Result Found:</strong></p><br>
+            <p>License: ${result.license}, Maker: ${result.maker}, Model: ${result.model}, Owner: ${result.owner}, Price: ${result.price}, Color: ${result.color}, Year: ${result.year}</p>
+        `;
+    }else {
+        resultsDiv.textContent = `No car was found with license plate: ${searchInput}`
+    }
 }
 
-function reset(){
+function resetInput(){
     licensePlateInput.value = ""
     makerInput.value = ""
     modelInput.value = ""
-    ownerInput.value = ""
-    priceInput.value = ""
-    colorInput.value = ""
+    ownerInput.value = "";
+    priceInput.value = "";
+    colorInput.value = "";
+    yearInput.value = "";
 }
 
 
+carForm.addEventListener("submit",getCarData)
 
-addCarBtn.addEventListener("click",getCarData)
-resetBtn.addEventListener("click",reset)
-searchCarform.addEventListener("input",carSearch)
+
+resetBtn.addEventListener("click",resetInput)
+searchCarform.addEventListener("submit",licenseSearch)

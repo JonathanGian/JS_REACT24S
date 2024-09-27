@@ -15,7 +15,8 @@
         <label for="licensePlateSearch">License number</label>
         <input class= "searchbar" type="text" name="searchbar" id="searchbar">
         <button type="submit" class= "searchBtn" name="button" id="searchBtn">Search</button>
-        <p id="searchResult">No car found</p>
+        
+        <div id="results"></div>
         </form>
 </nav>
     
@@ -23,43 +24,49 @@
 <body>
 <div class="main-container" id="main-container">
 <section class="form-container">
-<h2>Insert car data</h2>
+        <h2>Insert car data</h2>
 <form id="carInfo" method="get" class="car-form">
+
 <div>
     <label for="licensePlate">License Plate: </label>
+    <input type="text" name="licensePlate" id="licensePlate" required/>
     
-    <input type="text" name="licensePlate" id="licensePlate" />
 </div>
-    <div>
-    <label for="maker">Maker </label>
     
-    <input type="text" name="maker" id="maker" />
-    </div>
+<div>
+    <label for="maker">Maker </label>
+    <input type="text" name="maker" id="maker" required/>   
+</div>
+    
     <div>
     <label for="model">Model </label>
-    <input type="text" name="model" id="model" />
+    <input type="text" name="model" id="model" required/>
     </div>
     
     <div>
     <label for="currentOwner">Current Owner </label>
-    <input type="text" name="currentOwner" id="currentOwner" />
+    <input type="text" name="currentOwner" id="currentOwner" required/>
     </div>
     
     <div>
     <label for="price">Price </label>
-    <input type="number" name="price" id="price" />
+    <input type="number" name="price" id="price" required/>
 
 </div>
 <div>
     <label for="color">Color </label>
-    <input type="text" name="color" id="color" />    
+    <input type="text" name="color" id="color" required/>    
 </div>
-<button type="button" id="addCarBtn">Add car</button>
+<div>
+    <label for="year">Year</label>
+    <input type="number" name="year" id="year" required min="1886" max="2024">
+</div>
+<button type="submit" id="addCarBtn">Add car</button>
 <button type="reset" id="resetBtn">Reset</button>
 
 </form>
-
 </section>
+
 <section>
     <h2>Cars database</h2>
     <table id="carsTable">
@@ -70,6 +77,7 @@
             <th>Owner</th>
             <th>Price</th>
             <th>Color</th>
+            <th>Year</th>
         </tr>    
          
     </table>
