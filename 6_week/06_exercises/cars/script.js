@@ -46,22 +46,21 @@ function discount(price){
 
 
 function getCarData(){
+    event.preventDefault()
     // Im using the resultsDiv from the search engine to display errors
-    const resultsDiv = document.getElementById("results")
+   
     const price = Number.parseInt(priceInput.value.trim(), 10)
 
-    event.preventDefault()
     try {
-        if (price <= 0) {
-            resultsDiv.innerHTML = "<strong>Price is not vaild(Enter a number above 0)</strong>";
-            resultsDiv.style.color = "red";
+        if (price <= 0|| isNaN(price)) {
+            
         throw new RangeError("Price is not valid");
         
     }
     // This is never triggered but I put it in as a backup
     if (yearInput.value < 1886 || yearInput.value > 2024) {
-        resultsDiv.innerHTML = "<strong>Year must be between 1886-2024</strong>";
-        resultsDiv.style.color ="red";
+        /* resultsDiv.innerHTML = "<strong>Year must be between 1886-2024</strong>";
+        resultsDiv.style.color ="red"; */
         throw new Error("Year must be between 1886-2024");
         
     }
@@ -89,9 +88,10 @@ function getCarData(){
     localStorage.setItem("cars",JSON.stringify(cars));
     
     displayTable()
+    displayMessage("Car added successfully!");
 
     } catch (error) {
-        console.error("Caught an error:", error.message)
+        displayMessage(error.message, "error");
        
     }
 }
@@ -111,6 +111,16 @@ const displayTable = () =>{
 }
 
 displayTable()
+
+const displayMessage = (message, type = "success") => {
+    const messageElement = document.querySelector("#message");
+    messageElement.textContent = message;
+    messageElement.className = type;
+    setTimeout(() => {
+        messageElement.textContent = "";
+        messageElement.className = "";
+    }, 3000);
+};
 
 function licenseSearch(){
     

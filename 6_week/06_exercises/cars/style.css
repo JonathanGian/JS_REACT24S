@@ -59,8 +59,28 @@ justify-content: center;
 
 .main-container{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    flex-direction: row;
+    /* height: 90vh; */
 }
+
+section{
+    margin: 50px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: whitesmoke;
+}
+section:nth-child(2){
+    display: flex;
+    flex-direction:column;
+    height: 600px;
+    background-color: whitesmoke;
+   
+    
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+}
+
 h2 {
     padding-left: 10px;
 }
@@ -99,8 +119,10 @@ table{
 td, th {
     border: 1px solid #dddddd;
     background: lightskyblue;
-    text-align: left;
-    padding: 30px;
+    text-align: center;
+    padding: 10px;
+    border-collapse: collapse;
+    
   }
 /*   td:nth-child(even){
     background-color: #d4d4d4;
@@ -130,3 +152,34 @@ footer {
     align-items: flex-end;
 
 }
+#message {
+    margin-top: 1rem;
+    position: fixed;
+    top:1rem;
+    right:1rem;
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    visibility: hidden;
+    transition: visibility 0.3s ease;
+  }
+  
+  #message.success {
+    background-color: #4caf50;
+    color: white;
+    visibility: visible;
+  }
+  
+  #message.error {
+    background-color: #f44336;
+    color: white;
+    visibility: visible;
+  }
+
+@media  (max-width: 500px) {
+    .main-container{
+        flex-direction: column;
+    }
+  }
