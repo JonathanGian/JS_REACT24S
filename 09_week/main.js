@@ -21,7 +21,7 @@ fetch('https://jsonplaceholder.typicode.com/users/')
         try {
             const response = await fetch("https://api.thecatapi.com/v1/images/search")
             const data = await response.json()
-            console.log(data)
+            console.log(data[0])
 
             catFrame.style.width = `${data[0].width}px`;
             catFrame.style.height = `${data[0].height}px`;
