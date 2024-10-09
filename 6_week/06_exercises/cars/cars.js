@@ -6,7 +6,6 @@ if (cars == undefined) {
     cars = []
     
 }
-// localStorage.clear() in the console will clear the storage
 
 function Car(license,maker,model,owner,price,discount,color,year) {
     this.license = license;
@@ -18,9 +17,6 @@ function Car(license,maker,model,owner,price,discount,color,year) {
     this.color = color;
     this.year = year;
 }
-
-
-
 
 // Form inputs
 const searchCarform = document.getElementById("search-bar")
@@ -34,7 +30,6 @@ const priceInput = document.getElementById("price");
 const colorInput = document.getElementById("color");
 const yearInput = document.getElementById("year")
 const addCarBtn = document.querySelector("#addCarBtn");
-
 //End of form inputs
 
 // Discount function
@@ -42,13 +37,11 @@ function discount(price){
     const discountRate = 0.85
     return price * discountRate
 }
-
-
+//Fuction to get input data and give a discount
 
 function getCarData(){
     event.preventDefault()
-    // Im using the resultsDiv from the search engine to display errors
-   
+
     const price = Number.parseInt(priceInput.value.trim(), 10)
 
     try {
@@ -97,21 +90,43 @@ function getCarData(){
 }
         
     
-const displayTable = () =>{
+
+const displayTable = () => {
     const table = document.querySelector("#carsTable");
-    table.innerHTML = table.rows[0].innerHTML;
-    cars.forEach(car =>{
+    table.innerHTML = table.rows[0].innerHTML; 
+
+    cars.forEach((car, index) => {
         const row = table.insertRow(-1);
 
+        
         Object.values(car).forEach(text => {
             const cell = row.insertCell(-1);
             cell.textContent = text;
-        })
-    })
+        });
+
+        const deleteCell = row.insertCell(-1);
+        const deleteBtn = document.createElement('Dbutton');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.onclick = () => deleteCar(index); 
+        deleteCell.appendChild(deleteBtn);
+    });
+};
+
+
+function deleteCar(index) {
+
+    cars.splice(index, 1);
+
+    localStorage.setItem("cars", JSON.stringify(cars));
+
+    displayTable();
+    displayMessage("Car deleted successfully!");
 }
 
 displayTable()
 
+// Margits displayMessage function
 const displayMessage = (message, type = "success") => {
     const messageElement = document.querySelector("#message");
     messageElement.textContent = message;
@@ -123,11 +138,10 @@ const displayMessage = (message, type = "success") => {
 };
 
 function licenseSearch(){
-    
+    event.preventDefault()
     const searchInput = document.getElementById("searchbar").value.trim();
 
-    event.preventDefault()
-    
+
     const resultsDiv = document.getElementById("results")
     
     if (searchInput === ""){
